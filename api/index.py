@@ -67,3 +67,19 @@ def drip():
         <h3>Dividend Per Share: ${dps:.2f}</h3>
         <h3>Ending Portfolio Value: ${portfolio_value:.2f}</h3>
         <img src='data:image/png;base64,{data}'/>"""
+
+@app.route('/drip/api', methods=['GET'])
+def drip_api():
+    ticker = request.args.get('ticker')
+    shares = request.args.get('shares')
+    if not ticker:
+        return "No ticker given."
+    elif not shares:
+        return "No shares given."
+    
+    shares = float(shares)
+    y_series = drip_shares(shares)
+    cost = shares * share_price
+    portfolio_value = y_series[-1] * share_price
+    
+    return y_series

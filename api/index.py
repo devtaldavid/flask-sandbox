@@ -33,12 +33,13 @@ def about():
 @app.route('/drip', methods=['GET'])
 def drip():
     ticker = request.args.get('ticker')
-    shares = float(request.args.get('shares'))
+    shares = request.args.get('shares')
     if not ticker:
         return "No ticker given."
     elif not shares:
         return "No shares given."
     
+    shares = float(shares)
     y_series = drip_shares(shares)
     cost = shares * share_price
     portfolio_value = y_series[-1] * share_price

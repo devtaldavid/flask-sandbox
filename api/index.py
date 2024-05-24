@@ -30,6 +30,10 @@ def home():
 def about():
     return 'About'
 
+@app.route('/contact')
+def contact():
+    return 'Contact'
+
 @app.route('/drip', methods=['GET'])
 def drip():
     ticker = request.args.get('ticker')
